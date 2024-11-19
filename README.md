@@ -80,7 +80,7 @@ Petify is a platform that allows pet owners to book services such as pet sitting
 
 ### Phase 3: Optimization
 - [ ] Refactor code for improved performance and maintainability.
-
+- [ ] Refactor some codes for improve user experience.
   
 
 
