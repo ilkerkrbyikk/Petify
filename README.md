@@ -33,7 +33,7 @@ Petify is a platform that allows pet owners to book services such as pet sitting
 2. Create a database named petify_db
    - Update application.properties with your credentials.
    ```bash
-       spring.datasource.url=jdbc:mysql://localhost:3306/petify
+       spring.datasource.url=jdbc:mysql://localhost:3306/petify_db
        spring.datasource.username=YOUR_USERNAME
        spring.datasource.password=YOUR_PASSWORD
 
@@ -49,7 +49,7 @@ Petify is a platform that allows pet owners to book services such as pet sitting
 ### **Screenshots**
   Here is some screenshots from API.
 
-  ![breed controller](https://github.com/user-attachments/assets/2465f955-c6e5-45cb-bf0b-38b261704562)
+ ![breed controller](https://github.com/user-attachments/assets/2465f955-c6e5-45cb-bf0b-38b261704562)
 ![city controller](https://github.com/user-attachments/assets/f59ee3e7-d0c6-4afc-be34-6147e033c522)
 ![corporate customer](https://github.com/user-attachments/assets/08047a6d-d720-4c68-b0b4-06932e75497d)
 ![pet barber controller](https://github.com/user-attachments/assets/f4be5c2d-4f4e-4759-bf8c-fe894a38a21a)
