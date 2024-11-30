@@ -56,7 +56,7 @@ To set up the project locally, follow these steps:
       ./mvnw spring-boot:run
 
 
-### **API Endpoints**
+## **API Endpoints**
 
   Petify API includes Swagger API documentation. You can find everything from here:  http://localhost:8080/swagger-ui/index.html. 
   Here is the endpoints.
