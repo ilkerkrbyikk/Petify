@@ -1,70 +1,88 @@
 # Petify
 
-Petify is a platform that allows pet owners to book services such as pet sitting, barber, re-homing, and hotels. Built with Java Spring, it offers a seamless experience for reserving pet-related services with real-time availability.
+Petify is a platform that facilitates interaction between pet owners and pet caregivers. Users can use this application to rehome their pets, make hotel reservations, access pet grooming services, and more. 
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
-- **Pet Sitting**: Book a pet sitter based on availability.
-- **Pet Barber**: Schedule grooming sessions for pets.
-- **Re-Homing**: Connect pets with new homes.
-- **Pet Hotels**: Reserve stays for pets in a comfortable environment.
-  
+- **Re-Homing Announcements**: Pet owners can create and manage announcements to find new homes for their pets.
+- **Reservation Management**: Users can book and manage reservations for pet hotels and grooming services.
+- **Comment and Rating System**: Users can leave feedback and ratings for services received, helping others make informed decisions.
+
 ## Technologies Used
-- **Java**: The primary programming language.
-- **Spring Boot**: Framework for building the RESTful API.
-- **Hibernate**: ORM for database interactions.
-- **MySQL**: Database for storing user and pet information.
-- **Lombok**: To reduce boilerplate code in Java
-## Getting Started
 
-### Prerequisites
+- **Java**: The primary programming language for backend development.
+- **Spring Boot**: A framework for building the RESTful API.
+- **JPA/Hibernate**: For object-relational mapping and database interactions.
+- **MySQL**: The relational database used to store application data.
+- **Lombok**: A library to reduce boilerplate code in Java classes.
+- **Spring Security**: For securing the application and managing user authentication.
 
-- Java 8 or higher
-- Maven
-- MySQL
 
-### Installation
+## Installation
 
-1. Clone the repository:
+To set up the project locally, follow these steps:
+
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/ilkerkrbyikk/Petify.git
+   git clone https://github.com/yourusername/petify.git
+   cd petify
 
-2. Create a database named petify_db
-   - Update application.properties with your credentials.
+2. **Set up the database**:
+- Create a MySQL database named petify.
+
+- Update the src/main/resources/application.properties file with your database credentials:
+
    ```bash
-       spring.datasource.url=jdbc:mysql://localhost:3306/petify_db
-       spring.datasource.username=YOUR_USERNAME
-       spring.datasource.password=YOUR_PASSWORD
+   spring.datasource.url=jdbc:mysql://localhost:3306/petify
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
 
-3. Build and run the application.
+3. **Build and run the application**.
    ```bash
-      mvn spring-boot:run
+      ./mvnw clean install
 
-4.Access the application:
+4. **Access the application**:
+   ```bash
+      ./mvnw spring-boot:run
 
-    Navigate to http://localhost:8080 in your browser.
+
+### **API Endpoints**
+
+  Petify API includes Swagger API documentation. You can find everything from here:  http://localhost:8080/swagger-ui/index.html. 
+  Here is the endpoints.
 
 
-### **Screenshots**
-  Here is some screenshots from API.
 
- ![breed controller](https://github.com/user-attachments/assets/2465f955-c6e5-45cb-bf0b-38b261704562)
-![city controller](https://github.com/user-attachments/assets/f59ee3e7-d0c6-4afc-be34-6147e033c522)
-![corporate customer](https://github.com/user-attachments/assets/08047a6d-d720-4c68-b0b4-06932e75497d)
-![pet barber controller](https://github.com/user-attachments/assets/f4be5c2d-4f4e-4759-bf8c-fe894a38a21a)
-![pet barber](https://github.com/user-attachments/assets/cbf50e6d-a8b3-460a-aa2d-9b29321e6f70)
-![petcontroller](https://github.com/user-attachments/assets/47653de9-d8ac-43ea-9ebb-2b8b0532d6de)
-![rehoming](https://github.com/user-attachments/assets/21d8ab58-5cb5-4bf2-9acc-8cbb1932c043)
-![Screenshot_1](https://github.com/user-attachments/assets/b5f2697d-98e6-4a7d-b822-532db0c927f6)
-![Screenshot_2](https://github.com/user-attachments/assets/4cf6d07b-ab41-45ce-8b20-b9a155e461f5)
-![admın auth](https://github.com/user-attachments/assets/5ff641f8-45b4-4d19-a563-d4530442cb81)
-![auth](https://github.com/user-attachments/assets/5de979f9-bd42-41dd-8e55-daceb4ce4886)
-
+![bred](https://github.com/user-attachments/assets/5cd05dab-fe61-4c7c-b3ca-334226317547)
+![city](https://github.com/user-attachments/assets/97268e19-5d30-4aa7-b2fb-6da3001f0525)
+![comment](https://github.com/user-attachments/assets/df90e98b-1f54-47ac-81da-5157d97a317c)
+![corporate customer](https://github.com/user-attachments/assets/f75b44a4-c4db-4832-bdb7-624829dc46ef)
+![customer](https://github.com/user-attachments/assets/798266dd-f75e-4e78-8b0e-d3efa77c19f5)
+![gender](https://github.com/user-attachments/assets/95d25db2-8e24-40f8-a569-1f5bbd0bc712)
+![hotel](https://github.com/user-attachments/assets/0e65f525-6f39-46c1-8335-875ee124b644)
+![pet barber reservations](https://github.com/user-attachments/assets/f4bea3e6-33d5-45f3-824d-8078143eda95)
+![pet barber](https://github.com/user-attachments/assets/b20d5fbb-f90e-4583-8e85-801767fa8bd3)
+![pet sitter](https://github.com/user-attachments/assets/8a959de3-0bda-4c9d-a95d-c7ec265c5d65)
+![pet](https://github.com/user-attachments/assets/21231508-dffe-4bba-8be5-041999de0a54)
+![re homing](https://github.com/user-attachments/assets/4fba0b68-0e6f-488e-800f-dd2cbbb47890)
+![admin auth](https://github.com/user-attachments/assets/6edbab17-5ece-4cfa-b0f6-8fd4d25f0d93)
+![corporate customer auth](https://github.com/user-attachments/assets/a900ddab-8771-4a12-a5a9-dfb5dd2d0d01)
+![customer auth](https://github.com/user-attachments/assets/9933e2f0-e81d-40a0-97d7-35d988b22bd4)
+![pet sitter auth](https://github.com/user-attachments/assets/5c31de37-f21f-4bcc-b2f7-aa30e4826c0c)
 
    
 
-  
-## Roadmap
+## *Roadmap*
 
 ### Phase 1: Core Enhancements
 - [ ] Implement two-factor authentication for enhanced security.
@@ -80,14 +98,33 @@ Petify is a platform that allows pet owners to book services such as pet sitting
 ### Phase 3: Optimization
 - [ ] Refactor code for improved performance and maintainability.
 - [ ] Refactor some codes for improve user experience.
+
+
   
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
   
 ## Contributors
 
-- [@ilkerkrbyikk](https://www.github.com/ilkerkrbyikk)
+Contributions are welcome! If you would like to contribute to the project, please follow these steps:
+
+1 - Fork the repository.
+
+2- Create a new branch (git checkout -b feature/YourFeature).
+
+3- Make your changes and commit them (git commit -m 'Add some feature').
+
+4- Push to the branch (git push origin feature/YourFeature).
+
+5- Open a pull request.
+
+
 
   
- ## Contact
+## Contact
 
 For any questions or suggestions, please reach out to ilkerkubilaykarabiyik@gmail.com.
 
