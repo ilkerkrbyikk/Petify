@@ -9,13 +9,12 @@ Petify is a platform that allows pet owners to book services such as pet sitting
 - **Re-Homing**: Connect pets with new homes.
 - **Pet Hotels**: Reserve stays for pets in a comfortable environment.
   
-## Tech Stack
-
-- **Java** (Spring Boot)
-- **Spring Security**
-- **Hibernate / JPA**
-- **MySQL**
-
+## Technologies Used
+- **Java**: The primary programming language.
+- **Spring Boot**: Framework for building the RESTful API.
+- **Hibernate**: ORM for database interactions.
+- **MySQL**: Database for storing user and pet information.
+- **Lombok**: To reduce boilerplate code in Java
 ## Getting Started
 
 ### Prerequisites
