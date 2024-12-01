@@ -6,6 +6,7 @@ Petify is a platform that facilitates interaction between pet owners and pet car
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [ER Diagram](#ER-diagram)
 - [Installation](#installation)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
@@ -26,6 +27,11 @@ Petify is a platform that facilitates interaction between pet owners and pet car
 - **MySQL**: The relational database used to store application data.
 - **Lombok**: A library to reduce boilerplate code in Java classes.
 - **Spring Security**: For securing the application and managing user authentication.
+
+## ER Diagram
+
+![petify_db-db (2)](https://github.com/user-attachments/assets/34887b27-2081-4d85-8879-9a1c233dea03)
+
 
 
 ## Installation
@@ -56,7 +62,7 @@ To set up the project locally, follow these steps:
       ./mvnw spring-boot:run
 
 
-## **API Endpoints**
+### **API Endpoints**
 
   Petify API includes Swagger API documentation. You can find everything from here:  http://localhost:8080/swagger-ui/index.html. 
   Here is the endpoints.
