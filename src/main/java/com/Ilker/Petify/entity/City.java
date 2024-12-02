@@ -1,6 +1,8 @@
 package com.Ilker.Petify.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,10 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
+    @NotNull(message = "City must contain a name.")
+    @Size(min = 3, max= 20, message = "A city must have 3-15 characters.")
     private String name;
 
     @OneToMany(mappedBy = "city")
