@@ -3,6 +3,7 @@ package com.Ilker.Petify.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Comment {
     @Min(0)
     @Max(5)
     private int rating;
+    @Size(min = 10, max= 500, message = "Comment must have 10-250 characters.")
     private String commentText;
     private LocalDateTime createdAt;
 

@@ -3,6 +3,7 @@ package com.Ilker.Petify.entity;
 import com.Ilker.Petify.dto.BookingDto;
 import com.Ilker.Petify.enums.Status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,11 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Check in date can not be null.")
     private LocalDate checkInDate;
+
+    @NotNull(message = "Check out date can not be null.")
     private LocalDate checkOutDate;
     private double price;
     private Status status;
