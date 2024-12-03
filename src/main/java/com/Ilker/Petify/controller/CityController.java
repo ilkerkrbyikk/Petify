@@ -7,6 +7,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.CityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class CityController {
             summary = "Creates a new city with the provided details."
     )
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody AddCityRequest request){
+    public ResponseEntity<ApiResponse> add(@Valid @RequestBody AddCityRequest request){
         City city = cityService.add(request);
         return ResponseEntity.ok(new ApiResponse("Success.", city));
     }
@@ -45,7 +46,7 @@ public class CityController {
     )
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> update(@RequestBody UpdateCityRequest request, @PathVariable Long id){
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UpdateCityRequest request, @PathVariable Long id){
         City city = cityService.update(request,id);
         return ResponseEntity.ok(new ApiResponse("Success.",city));
     }
@@ -54,7 +55,7 @@ public class CityController {
             summary = "Deletes a city identified by its ID."
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> delete(@Valid @PathVariable Long id){
         cityService.delete(id);
 
         return ResponseEntity.ok(new ApiResponse("Success.",null));

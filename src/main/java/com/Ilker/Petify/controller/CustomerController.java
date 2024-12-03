@@ -8,6 +8,7 @@ import com.Ilker.Petify.service.BookingService;
 import com.Ilker.Petify.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class CustomerController {
                     "Upon successful booking, the booking information will be returned in the response."
     )
     @PostMapping("/booking")
-    public ResponseEntity<ApiResponse> postBook(@RequestBody BookingDto bookingDto){
+    public ResponseEntity<ApiResponse> postBook(@Valid @RequestBody BookingDto bookingDto){
         Booking booking = bookingService.bookHotel(bookingDto);
         return ResponseEntity.ok(new ApiResponse("Success.", booking));
     }
@@ -41,7 +42,7 @@ public class CustomerController {
                     "A successful cancellation will return a success message."
     )
     @DeleteMapping("/booking/delete/{id}")
-    public ResponseEntity<ApiResponse> cancelBook(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> cancelBook(@Valid @PathVariable Long id){
         bookingService.cancel(id);
         return ResponseEntity.ok(new ApiResponse("Success.", null));
     }
@@ -52,7 +53,7 @@ public class CustomerController {
                     "The updated booking information will be returned in the response."
     )
     @PutMapping("/booking/update/{id}")
-    public ResponseEntity<ApiResponse> updateBook(@RequestBody BookingDto bookingDto, @PathVariable Long id){
+    public ResponseEntity<ApiResponse> updateBook(@Valid @RequestBody BookingDto bookingDto, @PathVariable Long id){
         Booking booking = bookingService.updateBook(bookingDto,id);
         return ResponseEntity.ok(new ApiResponse("Success.",booking));
     }

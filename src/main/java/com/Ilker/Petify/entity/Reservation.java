@@ -29,7 +29,6 @@ public class Reservation {
     private LocalDateTime startTime;
 
     @Column(nullable = false)
-    @NotBlank(message = "Please choose the reservation end time." )
     private LocalDateTime endTime;
 
     @ManyToOne

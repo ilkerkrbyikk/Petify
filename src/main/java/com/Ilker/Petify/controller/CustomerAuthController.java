@@ -9,6 +9,7 @@ import com.Ilker.Petify.service.AuthService;
 import com.Ilker.Petify.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class CustomerAuthController {
             summary = "Registers a new customer."
     )
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> signUpCustomer(@RequestBody RegisterCustomerDto dto){
+    public ResponseEntity<ApiResponse> signUpCustomer(@Valid @RequestBody RegisterCustomerDto dto){
         Customer customer = authService.signUpCustomer(dto);
         return ResponseEntity.ok(new ApiResponse("Success.", customer));
     }
@@ -39,7 +40,7 @@ public class CustomerAuthController {
             summary = "Logs in a customer and returns a JWT token."
     )
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginCustomer(@RequestBody LoginDto dto){
+    public ResponseEntity<LoginResponse> loginCustomer(@Valid @RequestBody LoginDto dto){
         Customer authenticatedCustomer = authService.authenticateCustomer(dto);
         String jwtToken = jwtService.generateToken(authenticatedCustomer);
 

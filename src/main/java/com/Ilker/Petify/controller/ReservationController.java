@@ -7,6 +7,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class ReservationController {
                     "Upon successful creation, the newly created reservation will be returned."
     )
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> create(@RequestBody CreateReservationRequest request){
+    public ResponseEntity<ApiResponse> create(@Valid @RequestBody CreateReservationRequest request){
         Reservation reservation = reservationService.create(request);
         return ResponseEntity.ok(new ApiResponse("Success.",reservation));
     }
@@ -65,7 +66,7 @@ public class ReservationController {
                     "Upon successful update, the updated reservation will be returned."
     )
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> update(@RequestBody UpdateReservationRequest request, @PathVariable Long id){
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UpdateReservationRequest request, @PathVariable Long id){
         Reservation reservation = reservationService.update(request,id);
         return ResponseEntity.ok(new ApiResponse("Success.", reservation));
     }
@@ -75,7 +76,7 @@ public class ReservationController {
             description = "This endpoint allows the cancel of a reservation identified by its ID. " +
                     "Upon successful cancel, a success message will be returned."
     )    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> delete(@Valid @PathVariable Long id){
         reservationService.delete(id);
         return ResponseEntity.ok(new ApiResponse("Success.",null));
     }

@@ -5,6 +5,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class CustomerCommentController {
                     "If the entity type is invalid, a bad request response will be returned."
     )
     @PostMapping("/add")
-    public ResponseEntity<?> addComment(@RequestBody AddCommentRequest request,
+    public ResponseEntity<?> addComment(@Valid @RequestBody AddCommentRequest request,
                                         @PathVariable Long id,
                                         @PathVariable Long customerId){
         switch (request.getEntityType()) {
@@ -46,5 +47,7 @@ public class CustomerCommentController {
         }
         return ResponseEntity.status(CREATED).body("Success.");
     }
+
+    //TODO: DELETE COMMENT FUNCTION YAZ
 
 }

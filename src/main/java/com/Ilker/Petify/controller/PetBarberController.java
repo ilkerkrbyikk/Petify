@@ -7,6 +7,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.PetBarberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class PetBarberController {
                     "The city is identified by its ID. A successful response will include the details of the pet barbers in that city."
     )
     @GetMapping("/by-city/{cityId}")
-    public ResponseEntity<ApiResponse> getByCity(@PathVariable Long cityId){
+    public ResponseEntity<ApiResponse> getByCity(@Valid @PathVariable Long cityId){
         List<PetBarber> barberList = petBarberService.getByCity(cityId);
         return ResponseEntity.ok(new ApiResponse("Success.",barberList));
     }
@@ -51,7 +52,7 @@ public class PetBarberController {
                     "Upon successful addition, the newly created pet barber will be returned."
     )
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody AddPetBarberRequest request){
+    public ResponseEntity<ApiResponse> add(@Valid @RequestBody AddPetBarberRequest request){
         PetBarber petBarber = petBarberService.add(request);
         return ResponseEntity.ok(new ApiResponse("Success.",petBarber));
     }
@@ -63,7 +64,7 @@ public class PetBarberController {
                     "Upon successful update, the updated pet barber will be returned."
     )
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> update(@RequestBody UpdatePetBarberRequest request, @PathVariable Long id){
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UpdatePetBarberRequest request, @PathVariable Long id){
         PetBarber petBarber = petBarberService.update(request,id);
         return ResponseEntity.ok(new ApiResponse("Success.",petBarber));
     }
