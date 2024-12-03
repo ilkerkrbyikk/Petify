@@ -7,8 +7,10 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.ReHomingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,8 +42,9 @@ public class ReHomingController {
                     "The request must include the necessary details in the request body. " +
                     "Upon successful creation, the newly created announcement will be returned."
     )
+    @PreAuthorize("hasRole('CUSTOMER')")
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> create(@RequestBody CreateAnnouncementRequest request){
+    public ResponseEntity<ApiResponse> create(@Valid @RequestBody CreateAnnouncementRequest request){
         ReHoming reHoming = reHomingService.add(request);
         return ResponseEntity.ok(new ApiResponse("Success.",reHoming));
     }
@@ -53,8 +56,9 @@ public class ReHomingController {
                     "The request must include the updated details in the request body. " +
                     "Upon successful update, the updated announcement will be returned."
     )
+    @PreAuthorize("hasRole('CUSTOMER')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> update(@RequestBody UpdateAnnouncementRequest request,
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UpdateAnnouncementRequest request,
                                               @PathVariable Long id ){
         ReHoming reHoming = reHomingService.update(request,id);
         return ResponseEntity.ok(new ApiResponse("Success.",reHoming));
@@ -66,6 +70,7 @@ public class ReHomingController {
             description = "This endpoint allows the deletion of a re-homing announcement identified by its ID. " +
                     "Upon successful deletion, a success message will be returned."
     )
+    @PreAuthorize("hasRole('CUSTOMER')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
         reHomingService.delete(id);

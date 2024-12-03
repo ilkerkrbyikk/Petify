@@ -7,6 +7,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.BreedService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class BreedController {
             summary = "Add a new breed. Creates a new breed with the provided details."
     )
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody AddBreedRequest request){
+    public ResponseEntity<ApiResponse> add(@Valid @RequestBody AddBreedRequest request){
         Breed breed = breedService.add(request);
         return ResponseEntity.ok(new ApiResponse("Success", breed ));
     }
@@ -43,7 +44,7 @@ public class BreedController {
             summary = "Update an existing breed. Updates the details of an existing breed identified by its ID."
     )
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> update(@RequestBody UpdateBreedRequest request, @PathVariable(value = "id") Long id){
+    public ResponseEntity<ApiResponse> update(@Valid @RequestBody UpdateBreedRequest request, @PathVariable(value = "id") Long id){
         Breed breed = breedService.update(request,id);
         return  ResponseEntity.ok(new ApiResponse("Success.", breed));
     }
@@ -52,7 +53,7 @@ public class BreedController {
             summary = "Deletes an existing breed."
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> delete(@Valid @PathVariable Long id){
         breedService.delete(id);
         return ResponseEntity.ok(new ApiResponse("Success", null));
     }

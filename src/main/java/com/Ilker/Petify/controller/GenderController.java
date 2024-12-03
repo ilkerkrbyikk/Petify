@@ -6,6 +6,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.GenderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class GenderController {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody AddGenderRequest request){
+    public ResponseEntity<ApiResponse> add(@Valid  @RequestBody AddGenderRequest request){
         Gender gender = genderService.add(request);
         return ResponseEntity.ok(new ApiResponse("Success.",gender));
     }
@@ -53,7 +54,7 @@ public class GenderController {
                     "A successful deletion will return a success message."
     )
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> delete(@Valid @PathVariable Long id){
         genderService.delete(id);
         return ResponseEntity.ok(new ApiResponse("Success.", null));
     }

@@ -9,6 +9,7 @@ import com.Ilker.Petify.service.AuthService;
 import com.Ilker.Petify.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +30,7 @@ public class AdminAuthController {
             summary = "Sign up request for admins. Allows a new admin user to register. Creates an admin account based on the provided details."
     )
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> signUpAdmin(@RequestBody RegisterAdminDto dto){
+    public ResponseEntity<ApiResponse> signUpAdmin(@Valid @RequestBody RegisterAdminDto dto){
         Admin admin = authService.signUpAdmin(dto);
         return ResponseEntity.ok(new ApiResponse("Success.", admin));
     }
@@ -39,7 +40,7 @@ public class AdminAuthController {
 
     )
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto dto){
+    public ResponseEntity<LoginResponse> loginAdmin(@Valid @RequestBody LoginDto dto){
         Admin authenticatedAdmin = authService.authenticateAdmin(dto);
         String jwtToken = jwtService.generateToken(authenticatedAdmin);
 

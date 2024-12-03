@@ -7,6 +7,7 @@ import com.Ilker.Petify.response.ApiResponse;
 import com.Ilker.Petify.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class PetController {
                     "A successful response will include the details of the pets that match the gender."
     )
     @GetMapping("/by-gender/{id}")
-    public ResponseEntity<ApiResponse> getByGender(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> getByGender(@Valid @PathVariable Long id){
         Optional<List<Pet>> pets = petService.getByGender(id);
         return ResponseEntity.ok(new ApiResponse("Success", pets));
     }
@@ -52,7 +53,7 @@ public class PetController {
                     "A successful response will include the details of the pets in that city."
     )
     @GetMapping("/by-city/{id}")
-    public ResponseEntity<ApiResponse> getByCity(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> getByCity(@Valid @PathVariable Long id){
         Optional<List<Pet>> pets = petService.getByCity(id);
         return ResponseEntity.ok(new ApiResponse("Success", pets));
     }
@@ -63,7 +64,7 @@ public class PetController {
                     "A successful response will include the details of the pets that match the breed."
     )
     @GetMapping("/by-breed/{id}")
-    public ResponseEntity<ApiResponse> getByBreed(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> getByBreed(@Valid @PathVariable Long id){
         Optional<List<Pet>> pets = petService.getByBreed(id);
         return ResponseEntity.ok(new ApiResponse("Success", pets));
     }

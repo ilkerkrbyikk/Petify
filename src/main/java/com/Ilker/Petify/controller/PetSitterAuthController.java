@@ -9,6 +9,7 @@ import com.Ilker.Petify.service.AuthService;
 import com.Ilker.Petify.service.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ public class PetSitterAuthController {
                     "Upon successful registration, the newly created pet sitter will be returned."
     )
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> signUpSitter(@RequestBody RegisterPetSitterDto dto){
+    public ResponseEntity<ApiResponse> signUpSitter(@Valid  @RequestBody RegisterPetSitterDto dto){
         PetSitter petSitter = authService.signUpPetSitter(dto);
         return ResponseEntity.ok(new ApiResponse("Success.", petSitter));
     }
@@ -44,7 +45,7 @@ public class PetSitterAuthController {
                     "Upon successful authentication, a JWT token will be generated and returned along with its expiration time."
     )
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto dto){
+    public ResponseEntity<LoginResponse> loginAdmin(@Valid @RequestBody LoginDto dto){
         PetSitter authenticatedSitter = authService.authenticateSitter(dto);
         String jwtToken = jwtService.generateToken(authenticatedSitter);
 

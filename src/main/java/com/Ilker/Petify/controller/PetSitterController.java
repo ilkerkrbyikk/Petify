@@ -6,6 +6,7 @@ import com.Ilker.Petify.service.CommentService;
 import com.Ilker.Petify.service.PetSitterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +57,7 @@ public class PetSitterController {
                     "The response will return the average rating based on the comments received for that pet sitter."
     )
     @GetMapping("/comments/{petSitterId}/averageRating")
-    public ResponseEntity<ApiResponse> getAverageRating(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> getAverageRating(@Valid @PathVariable Long id){
         PetSitter petSitter = new PetSitter();
         petSitter.setId(id);
         double averageRating = commentService.calculatePetSitterAverageRating(petSitter);
