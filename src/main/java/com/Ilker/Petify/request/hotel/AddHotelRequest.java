@@ -16,7 +16,7 @@ public class AddHotelRequest {
     @Size(min = 12, max = 12, message = "Phone number must be exactly 12 digits.")
     private String phoneNumber;
 
-    @NotBlank(message = "Capacity can not be null.")
+    @NotNull(message = "Capacity can not be null.")
     private int capacity;
 
 
@@ -29,7 +29,7 @@ public class AddHotelRequest {
     private Long cityId;
     private Long corporateCustomerId;
 
-    @NotBlank(message = "Price can not be null.")
+    @NotNull(message = "Price can not be null.")
     private double price;
 }
 

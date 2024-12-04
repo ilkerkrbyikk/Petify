@@ -9,5 +9,7 @@ public interface BookingService {
     Booking bookHotel(BookingDto bookingDto);
     void cancel(Long id);
     Booking updateBook(BookingDto bookingDto, Long id);
+    void statusCancel(Long id);
+    void statusApprove(Long id);
 
 }

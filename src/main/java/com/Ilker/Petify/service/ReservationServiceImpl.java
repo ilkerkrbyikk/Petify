@@ -14,6 +14,7 @@ import com.Ilker.Petify.request.reservation.CreateReservationRequest;
 import com.Ilker.Petify.request.reservation.UpdateReservationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,8 @@ public class ReservationServiceImpl implements ReservationService {
     private final PetRepository petRepository;
     private final PetBarberRepository petBarberRepository;
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
     @Override
     public List<Reservation> getAll() {
         return reservationRepository.findAll();
@@ -39,69 +42,79 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    @Transactional
     public Reservation create(CreateReservationRequest request) {
-        //TODO: DAHA ONCE AYNI SAATTE RESERVASYON ETMİŞ Mİ CHECKLE
+
+        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), FORMATTER);
+
+        LocalDateTime endTime = startTime.plusMinutes(30);
+
+        PetBarber petBarber = petBarberRepository.findById(request.getBarberId())
+                .orElseThrow(()-> new PetBarberNotFoundException("Barber not found with given ID: " + request.getBarberId()));
+
+        Pet pet = petRepository.findPetById(request.getPetId())
+                .orElseThrow(()-> new PetNotFoundException("Pet not found with given ID: " + request.getPetId()));
+
+        if (!isAvailable(startTime, endTime, request.getBarberId())) {
+            throw new TimeSlotTakenException("The time slot from " + startTime + " to " + endTime + " is already taken.");
+        }
+
         Reservation reservation = new Reservation();
-
-        Pet pet = petRepository.findPetById(request.getPetId())
-                .orElseThrow(()-> new PetNotFoundException("Pet not found with given ID: " + request.getPetId()));
-        PetBarber petBarber = petBarberRepository.findById(request.getBarberId())
-                .orElseThrow(()-> new PetBarberNotFoundException("Barber not found with given ID: " + request.getBarberId()));
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), formatter);
-
-        if(isAvailable(LocalDateTime.parse(request.getStartTime()))){
-            reservation.setPetBarber(petBarber);
-            reservation.setPet(pet);
-            reservation.setStartTime(LocalDateTime.parse(request.getStartTime()));
-            return reservationRepository.save(reservation);
-
-        }else {
-            throw new TimeSlotTakenException("The time slot is already taken.");
-        }
+        reservation.setStartTime(startTime);
+        reservation.setEndTime(endTime);
+        reservation.setPetBarber(petBarber);
+        reservation.setPet(pet);
+        reservation.setTotalPrice(petBarber.getPrice());
+        return reservationRepository.save(reservation);
 
     }
 
     @Override
+    @Transactional
     public Reservation update(UpdateReservationRequest request, Long id) {
-        isReservationExistsById(id);
-        Reservation reservation = reservationRepository.findReservationById(id).get();
+        checkReservationExistsById(id);
+        Reservation reservation = reservationRepository.findReservationById(id)
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found with given ID." + id));
+
 
         Pet pet = petRepository.findPetById(request.getPetId())
                 .orElseThrow(()-> new PetNotFoundException("Pet not found with given ID: " + request.getPetId()));
         PetBarber petBarber = petBarberRepository.findById(request.getBarberId())
                 .orElseThrow(()-> new PetBarberNotFoundException("Barber not found with given ID: " + request.getBarberId()));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), formatter);
+        LocalDateTime startTime = LocalDateTime.parse(request.getStartTime(), FORMATTER);
+        LocalDateTime endTime = startTime.plusMinutes(30);
 
-        if(isAvailable(LocalDateTime.parse(request.getStartTime()))){
-            reservation.setPetBarber(petBarber);
-            reservation.setPet(pet);
-            reservation.setStartTime(LocalDateTime.parse(request.getStartTime()));
-            return reservationRepository.save(reservation);
-
-        }else {
-            throw new TimeSlotTakenException("The time slot is already taken.");
+        if (!isAvailable(startTime, endTime, request.getBarberId())) {
+            throw new TimeSlotTakenException("The time slot from " + startTime + " to " + endTime + " is already taken.");
         }
+
+        reservation.setStartTime(startTime);
+        reservation.setEndTime(endTime);
+        reservation.setPetBarber(petBarber);
+        reservation.setPet(pet);
+        reservation.setTotalPrice(petBarber.getPrice());
+        return reservationRepository.save(reservation);
+
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
+        checkReservationExistsById(id);
         reservationRepository.deleteById(id);
     }
 
-    public boolean isAvailable(LocalDateTime startTime) {
-        List<Reservation> existingReservations = reservationRepository.findByStartTimeBetween(
-                startTime, startTime.plusMinutes(30));
+    public boolean isAvailable(LocalDateTime startTime, LocalDateTime endTime, Long barberId) {
+        List<Reservation> existingReservations = reservationRepository.findByStartTimeBetweenAndPetBarberId(
+                startTime, endTime, barberId);
         return existingReservations.isEmpty();
     }
 
-    public void isReservationExistsById(Long id){
-        Optional<Reservation> optional = reservationRepository.findReservationById(id);
-        if(optional.isEmpty()){
-            throw new ReservationNotFoundException("Pet not found with ID: " + id);
+    //* private method unutma.
+    private void checkReservationExistsById(Long id) {
+        if (!reservationRepository.existsById(id)) {
+            throw new ReservationNotFoundException("Reservation not found with ID: " + id);
         }
     }
 }

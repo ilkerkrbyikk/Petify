@@ -1,6 +1,7 @@
 package com.Ilker.Petify.entity;
 
 import com.Ilker.Petify.enums.Roles;
+import io.swagger.annotations.ApiModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "customers")
 @PrimaryKeyJoinColumn(name = "customer_id")
 @Inheritance(strategy = InheritanceType.JOINED)
+@ApiModel(description = "Details about the customer")
 public class Customer extends User {
 
     @NotNull(message = "Name can not be null.")

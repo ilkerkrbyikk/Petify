@@ -11,4 +11,9 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     List<Reservation> findByStartTimeBetween(LocalDateTime startTime, LocalDateTime localDateTime);
 
     Optional<Reservation> findReservationById(Long id);
+
+    boolean existsByStartTimeBetween(LocalDateTime startTime, LocalDateTime endTime);
+    boolean existsByStartTimeBetweenAndPetBarberId(LocalDateTime startTime, LocalDateTime endTime, Long petBarberId);
+
+    List<Reservation> findByStartTimeBetweenAndPetBarberId(LocalDateTime startTime, LocalDateTime endTime, Long barberId);
 }
