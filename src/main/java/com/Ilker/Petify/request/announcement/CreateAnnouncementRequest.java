@@ -14,7 +14,7 @@ public class CreateAnnouncementRequest {
     @NotBlank(message = "Please enter some information.")
     private String description;
 
-    @NotBlank(message = "Please choose the pet.")
+    @NotNull(message = "Please choose the pet.")
     private Long petId;
     private Long customerId;
 

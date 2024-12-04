@@ -25,6 +25,7 @@ public class Comment {
     @Min(0)
     @Max(5)
     private int rating;
+
     @Size(min = 10, max= 500, message = "Comment must have 10-250 characters.")
     private String commentText;
     private LocalDateTime createdAt;

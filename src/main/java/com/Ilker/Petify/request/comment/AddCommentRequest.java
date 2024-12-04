@@ -1,9 +1,6 @@
 package com.Ilker.Petify.request.comment;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -13,7 +10,7 @@ public class AddCommentRequest {
     @NotBlank(message = "Please set the entity type.")
     private String entityType;
 
-    @NotBlank(message = "Rating is required.")
+    @NotNull(message = "Rating is required.")
     @Min(value = 1,message = "You can give a minimum of 1 star.")
     @Max(value = 5, message = "You can give a maximum of 5 stars.")
     private int rating;

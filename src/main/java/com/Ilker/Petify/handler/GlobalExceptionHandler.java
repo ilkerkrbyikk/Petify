@@ -16,6 +16,13 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(InvalidBookingDateException.class)
+    public ResponseEntity<Object> handleInvalidBookingException(InvalidBookingDateException e){
+        return ResponseEntity
+                .status(INTERNAL_SERVER_ERROR)
+                .body(e.getMessage());
+    }
+
     //* VALIDATION EXCEPTION
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {

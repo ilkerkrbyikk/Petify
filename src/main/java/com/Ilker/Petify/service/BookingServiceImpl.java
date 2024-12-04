@@ -11,9 +11,8 @@ import com.Ilker.Petify.repository.BookingRepository;
 import com.Ilker.Petify.repository.CustomerRepository;
 import com.Ilker.Petify.repository.HotelRepository;
 import com.Ilker.Petify.repository.PetRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -33,7 +32,17 @@ public class BookingServiceImpl implements BookingService{
         this.hotelRepository = hotelRepository;
     }
 
+    @Transactional
+    @Override
     public Booking bookHotel(BookingDto bookingDto){
+        /*
+
+            burada ek bir kontrol olarak check in check out dateleri kontrol ediliyor.
+         */
+        if(bookingDto.getCheckInDate().isAfter(bookingDto.getCheckOutDate()) ||
+                bookingDto.getCheckInDate().isEqual(bookingDto.getCheckOutDate())){
+            throw new InvalidBookingDateException("Check-in date must be before check-out date.");
+        }
         Booking booking = new Booking();
         Pet pet = petRepository.findById(bookingDto.getPetId())
                 .orElseThrow(()->
@@ -67,6 +76,7 @@ public class BookingServiceImpl implements BookingService{
         }
     }
 
+    @Transactional
     @Override
     public Booking updateBook(BookingDto bookingDto, Long id){
         checkIsExistBookingById(id);
@@ -89,7 +99,7 @@ public class BookingServiceImpl implements BookingService{
             booking.setHotel(hotel);
             booking.setCheckInDate(bookingDto.getCheckInDate());
             booking.setCheckOutDate(bookingDto.getCheckOutDate());
-            hotel.setCurrentCapacity(hotel.getCapacity() + 1 );
+            hotel.setCurrentCapacity(hotel.getCurrentCapacity() + 1 );
             hotelRepository.save(hotel);
 
             Long days = ChronoUnit.DAYS.between(bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
@@ -103,6 +113,7 @@ public class BookingServiceImpl implements BookingService{
         }
     }
 
+    @Transactional
     @Override
     public void cancel(Long id){
         checkIsExistBookingById(id);
@@ -114,16 +125,31 @@ public class BookingServiceImpl implements BookingService{
     public void checkIsExistBookingById(Long id){
         Optional<Booking> optional = bookingRepository.findById(id);
         if(optional.isEmpty()){
-            throw new BookingNotFoundException("Hotel not found with given ID: " + id);
+            throw new BookingNotFoundException("Booking not found with given ID: " + id);
         }
     }
 
+    //TODO: CONTROLLER KISMINI YAZ
+    @Override
+    @Transactional
     public void statusApprove(Long id){
         checkIsExistBookingById(id);
         Booking booking = bookingRepository.findBookingById(id);
         booking.setStatus(Status.APPROVE);
         bookingRepository.save(booking);
     }
+
+    //TODO: CONTROLLER KISMINI YAZ
+    @Override
+    @Transactional
+    public void statusCancel(Long id){
+        checkIsExistBookingById(id);
+        Booking booking = bookingRepository.findBookingById(id);
+        booking.setStatus(Status.CANCEL);
+        bookingRepository.save(booking);
+    }
+
+
 
 
 }

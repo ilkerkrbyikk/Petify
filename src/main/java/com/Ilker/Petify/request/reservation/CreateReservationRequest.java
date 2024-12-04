@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 @Data
 public class CreateReservationRequest {
 
-    @NotBlank(message = "Please choose the pet.")
+    @NotNull(message = "Please choose the pet.")
     private Long petId;
 
-    @NotBlank(message = "Please choose the barber." )
+    @NotNull(message = "Please choose the barber." )
     private Long barberId;
 
     @NotBlank(message = "Please choose the reservation start time." )
