@@ -16,6 +16,19 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
+    @ExceptionHandler(InvalidFileTypeException.class)
+    public ResponseEntity<Object> handleFileTypeException(InvalidFileTypeException e){
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+
+    @ExceptionHandler(FileSizeTooBigException.class)
+    public ResponseEntity<Object> handleFileSizeException(FileSizeTooBigException e){
+        return ResponseEntity
+                .status(INTERNAL_SERVER_ERROR)
+                .body(e.getMessage());
+    }
+
     @ExceptionHandler(InvalidBookingDateException.class)
     public ResponseEntity<Object> handleInvalidBookingException(InvalidBookingDateException e){
         return ResponseEntity

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Base64;
 import java.util.List;
 
 @Entity
@@ -55,5 +56,18 @@ public class Hotel {
 
     @OneToMany(mappedBy = "hotel")
     private List<Comment> comment;
+
+    @Lob
+    @Column(name = "hotel_image", columnDefinition = "LONGBLOB")
+    private byte[] hotelImage;
+
+    private byte[] hotelProfilePic;
+
+
+    //BASE64 ENCODING
+    public String getBase64Image() {
+        return hotelImage != null ?
+                Base64.getEncoder().encodeToString(hotelImage) : null;
+    }
 }
 
