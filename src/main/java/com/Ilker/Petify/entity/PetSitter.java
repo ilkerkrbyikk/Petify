@@ -60,4 +60,7 @@ public class PetSitter extends User {
     private List<Comment> comment;
 
 
+    private String profileImagePath;
+
+
 }

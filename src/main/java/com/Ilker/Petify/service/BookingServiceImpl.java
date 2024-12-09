@@ -36,7 +36,6 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public Booking bookHotel(BookingDto bookingDto){
         /*
-
             burada ek bir kontrol olarak check in check out dateleri kontrol ediliyor.
          */
         if(bookingDto.getCheckInDate().isAfter(bookingDto.getCheckOutDate()) ||
