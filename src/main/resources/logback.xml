@@ -1,0 +1,37 @@
+<configuration>
+
+    <!-- Log seviyeleri için bir değişken tanımlama -->
+    <property name="LOG_LEVEL" value="DEBUG"/>
+    <property name="LOG_FILE" value="logs/app.log"/>
+
+    <!-- Konsol için bir appender tanımlama -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Dosya için bir appender tanımlama -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>30</maxHistory> <!-- 30 gün boyunca log dosyalarını sakla -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root logger ayarları -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- Belirli bir logger için özel ayarlar -->
+    <logger name="com.example" level="INFO">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+</configuration>
