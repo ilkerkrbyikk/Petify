@@ -27,6 +27,7 @@ Petify is a platform that facilitates interaction between pet owners and pet car
 - **MySQL**: The relational database used to store application data.
 - **Lombok**: A library to reduce boilerplate code in Java classes.
 - **Spring Security**: For securing the application and managing user authentication.
+- **Validation**: It is used to ensure that the data provided to an application meets predefined constraints or rules.
 
 ## ER Diagram
 
