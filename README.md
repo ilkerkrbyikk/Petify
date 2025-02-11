@@ -41,7 +41,7 @@ To set up the project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/petify.git
+   git clone https://github.com/ilkerkrbyikk/petify.git
    cd petify
 
 2. **Set up the database**:
@@ -50,7 +50,7 @@ To set up the project locally, follow these steps:
 - Update the src/main/resources/application.properties file with your database credentials:
 
    ```bash
-   spring.datasource.url=jdbc:mysql://localhost:3306/petify
+   spring.datasource.url=jdbc:mysql://localhost:3306/petify_db
    spring.datasource.username=your_username
    spring.datasource.password=your_password
 
